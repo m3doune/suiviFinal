@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompteCreateDlg" widgetVar="CompteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCompteTitle}">
+            <h:form id="CompteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
+          
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{compteController.selected.login}" title="#{bundle.CreateCompteTitle_login}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{compteController.selected.password}" title="#{bundle.CreateCompteTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_medecin}" for="medecin" />
+                        <p:selectBooleanCheckbox id="medecin" value="#{compteController.selected.medecin}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{compteController.selected.nom}" title="#{bundle.CreateCompteTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{compteController.selected.prenom}" title="#{bundle.CreateCompteTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_sexe}" for="sexe" />
+                        <p:selectBooleanCheckbox id="sexe" value="#{compteController.selected.sexe}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{compteController.selected.adresse}" title="#{bundle.CreateCompteTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_datenaiss}" for="datenaiss" />
+                        <p:calendar id="datenaiss" pattern="MM/dd/yyyy HH:mm:ss" value="#{compteController.selected.datenaiss}" title="#{bundle.EditCompteTitle_datenaiss}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{compteController.selected.tel}" title="#{bundle.CreateCompteTitle_tel}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{compteController.selected.email}" title="#{bundle.CreateCompteTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_idLoc}" for="idLoc" />
+                        <p:selectOneMenu id="idLoc" value="#{compteController.selected.idLoc}" >
+                            <f:selectItems value="#{localiteController.itemsAvailableSelectOne}"
+                                           var="idLocItem"
+                                           itemValue="#{idLocItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{compteController.create}" value="#{bundle.Save}" update="display,:CompteListForm:datalist,:growl" oncomplete="handleSubmit(args,'CompteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

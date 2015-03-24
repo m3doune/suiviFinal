@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOrdonnanceTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="OrdonnanceListForm">
+                <p:panel header="#{bundle.ListOrdonnanceTitle}">
+                    <p:dataTable id="datalist" value="#{ordonnanceController.items}" var="item"
+                                 selectionMode="single" selection="#{ordonnanceController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idOrdonnance}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdonnanceTitle_idOrdonnance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idOrdonnance}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdonnanceTitle_datedebut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datedebut}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdonnanceTitle_datefin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datefin}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdonnanceTitle_assister}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.assister}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrdonnanceTitle_idConsultation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idConsultation}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ordonnanceController.prepareCreate}" update=":OrdonnanceCreateForm" oncomplete="PF('OrdonnanceCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrdonnanceViewForm" oncomplete="PF('OrdonnanceViewDialog').show()" disabled="#{empty ordonnanceController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrdonnanceEditForm" oncomplete="PF('OrdonnanceEditDialog').show()" disabled="#{empty ordonnanceController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ordonnanceController.destroy}" update=":growl,datalist" disabled="#{empty ordonnanceController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

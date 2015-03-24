@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConsultationEditDlg" widgetVar="ConsultationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditConsultationTitle}">
+            <h:form id="ConsultationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{consultationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditConsultationLabel_idConsultation}" for="idConsultation" />
+                        <p:inputText id="idConsultation" value="#{consultationController.selected.idConsultation}" title="#{bundle.EditConsultationTitle_idConsultation}" required="true" requiredMessage="#{bundle.EditConsultationRequiredMessage_idConsultation}"/>
+                        <p:outputLabel value="#{bundle.EditConsultationLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{consultationController.selected.date}" title="#{bundle.EditConsultationTitle_date}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditConsultationLabel_idAnalyse}" for="idAnalyse" />
+                        <p:selectOneMenu id="idAnalyse" value="#{consultationController.selected.idAnalyse}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{analyseController.itemsAvailableSelectOne}"
+                                           var="idAnalyseItem"
+                                           itemValue="#{idAnalyseItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditConsultationLabel_idRdv}" for="idRdv" />
+                        <p:selectOneMenu id="idRdv" value="#{consultationController.selected.idRdv}" required="true" requiredMessage="#{bundle.EditConsultationRequiredMessage_idRdv}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rendezVousController.itemsAvailableSelectOne}"
+                                           var="idRdvItem"
+                                           itemValue="#{idRdvItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{consultationController.update}" value="#{bundle.Save}" update="display,:ConsultationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConsultationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ConsultationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

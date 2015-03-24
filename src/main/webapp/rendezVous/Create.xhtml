@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RendezVousCreateDlg" widgetVar="RendezVousCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRendezVousTitle}">
+            <h:form id="RendezVousCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rendezVousController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRendezVousLabel_idRdv}" for="idRdv" />
+                        <p:inputText id="idRdv" value="#{rendezVousController.selected.idRdv}" title="#{bundle.CreateRendezVousTitle_idRdv}" required="true" requiredMessage="#{bundle.CreateRendezVousRequiredMessage_idRdv}"/>
+                        <p:outputLabel value="#{bundle.CreateRendezVousLabel_date}" for="date" />
+                        <p:calendar id="date" pattern="MM/dd/yyyy HH:mm:ss" value="#{rendezVousController.selected.date}" title="#{bundle.EditRendezVousTitle_date}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateRendezVousLabel_idMedecin}" for="idMedecin" />
+                        <p:selectOneMenu id="idMedecin" value="#{rendezVousController.selected.idMedecin}" >
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="idMedecinItem"
+                                           itemValue="#{idMedecinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRendezVousLabel_idPatient}" for="idPatient" />
+                        <p:selectOneMenu id="idPatient" value="#{rendezVousController.selected.idPatient}" required="true" requiredMessage="#{bundle.EditRendezVousRequiredMessage_idPatient}">
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="idPatientItem"
+                                           itemValue="#{idPatientItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rendezVousController.create}" value="#{bundle.Save}" update="display,:RendezVousListForm:datalist,:growl" oncomplete="handleSubmit(args,'RendezVousCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RendezVousCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

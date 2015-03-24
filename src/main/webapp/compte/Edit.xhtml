@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompteEditDlg" widgetVar="CompteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCompteTitle}">
+            <h:form id="CompteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCompteLabel_idCompte}" for="idCompte" />
+                        <p:inputText id="idCompte" value="#{compteController.selected.idCompte}" title="#{bundle.EditCompteTitle_idCompte}" required="true" requiredMessage="#{bundle.EditCompteRequiredMessage_idCompte}"/>
+                        <p:outputLabel value="#{bundle.EditCompteLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{compteController.selected.login}" title="#{bundle.EditCompteTitle_login}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{compteController.selected.password}" title="#{bundle.EditCompteTitle_password}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_medecin}" for="medecin" />
+                        <p:selectBooleanCheckbox id="medecin" value="#{compteController.selected.medecin}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{compteController.selected.nom}" title="#{bundle.EditCompteTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{compteController.selected.prenom}" title="#{bundle.EditCompteTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_sexe}" for="sexe" />
+                        <p:selectBooleanCheckbox id="sexe" value="#{compteController.selected.sexe}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{compteController.selected.adresse}" title="#{bundle.EditCompteTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_datenaiss}" for="datenaiss" />
+                        <p:calendar id="datenaiss" pattern="MM/dd/yyyy HH:mm:ss" value="#{compteController.selected.datenaiss}" title="#{bundle.EditCompteTitle_datenaiss}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCompteLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{compteController.selected.tel}" title="#{bundle.EditCompteTitle_tel}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{compteController.selected.email}" title="#{bundle.EditCompteTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditCompteLabel_idLoc}" for="idLoc" />
+                        <p:selectOneMenu id="idLoc" value="#{compteController.selected.idLoc}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{localiteController.itemsAvailableSelectOne}"
+                                           var="idLocItem"
+                                           itemValue="#{idLocItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{compteController.update}" value="#{bundle.Save}" update="display,:CompteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CompteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

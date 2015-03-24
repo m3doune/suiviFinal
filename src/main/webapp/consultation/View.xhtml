@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConsultationViewDlg" widgetVar="ConsultationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewConsultationTitle}">
+            <h:form id="ConsultationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{consultationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewConsultationLabel_idConsultation}"/>
+                        <h:outputText value="#{consultationController.selected.idConsultation}" title="#{bundle.ViewConsultationTitle_idConsultation}"/>
+                        <h:outputText value="#{bundle.ViewConsultationLabel_date}"/>
+                        <h:outputText value="#{consultationController.selected.date}" title="#{bundle.ViewConsultationTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewConsultationLabel_idAnalyse}"/>
+                        <h:outputText value="#{consultationController.selected.idAnalyse}" title="#{bundle.ViewConsultationTitle_idAnalyse}"/>
+                        <h:outputText value="#{bundle.ViewConsultationLabel_idRdv}"/>
+                        <h:outputText value="#{consultationController.selected.idRdv}" title="#{bundle.ViewConsultationTitle_idRdv}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ConsultationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdonnanceEditDlg" widgetVar="OrdonnanceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrdonnanceTitle}">
+            <h:form id="OrdonnanceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ordonnanceController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOrdonnanceLabel_idOrdonnance}" for="idOrdonnance" />
+                        <p:inputText id="idOrdonnance" value="#{ordonnanceController.selected.idOrdonnance}" title="#{bundle.EditOrdonnanceTitle_idOrdonnance}" required="true" requiredMessage="#{bundle.EditOrdonnanceRequiredMessage_idOrdonnance}"/>
+                        <p:outputLabel value="#{bundle.EditOrdonnanceLabel_datedebut}" for="datedebut" />
+                        <p:calendar id="datedebut" pattern="MM/dd/yyyy HH:mm:ss" value="#{ordonnanceController.selected.datedebut}" title="#{bundle.EditOrdonnanceTitle_datedebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditOrdonnanceLabel_datefin}" for="datefin" />
+                        <p:inputText id="datefin" value="#{ordonnanceController.selected.datefin}" title="#{bundle.EditOrdonnanceTitle_datefin}" />
+                        <p:outputLabel value="#{bundle.EditOrdonnanceLabel_assister}" for="assister" />
+                        <p:selectBooleanCheckbox id="assister" value="#{ordonnanceController.selected.assister}" />
+                        <p:outputLabel value="#{bundle.EditOrdonnanceLabel_idConsultation}" for="idConsultation" />
+                        <p:selectOneMenu id="idConsultation" value="#{ordonnanceController.selected.idConsultation}" required="true" requiredMessage="#{bundle.EditOrdonnanceRequiredMessage_idConsultation}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{consultationController.itemsAvailableSelectOne}"
+                                           var="idConsultationItem"
+                                           itemValue="#{idConsultationItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordonnanceController.update}" value="#{bundle.Save}" update="display,:OrdonnanceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrdonnanceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrdonnanceEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

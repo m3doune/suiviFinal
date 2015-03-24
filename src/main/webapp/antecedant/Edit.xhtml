@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AntecedantEditDlg" widgetVar="AntecedantEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAntecedantTitle}">
+            <h:form id="AntecedantEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{antecedantController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAntecedantLabel_idDiagnostique}" for="idDiagnostique" />
+                        <p:inputText id="idDiagnostique" value="#{antecedantController.selected.idDiagnostique}" title="#{bundle.EditAntecedantTitle_idDiagnostique}" required="true" requiredMessage="#{bundle.EditAntecedantRequiredMessage_idDiagnostique}"/>
+                        <p:outputLabel value="#{bundle.EditAntecedantLabel_antecedentComptel}" for="antecedentComptel" />
+                        <p:inputText id="antecedentComptel" value="#{antecedantController.selected.antecedentComptel}" title="#{bundle.EditAntecedantTitle_antecedentComptel}" />
+                        <p:outputLabel value="#{bundle.EditAntecedantLabel_anecedentFamiliaux}" for="anecedentFamiliaux" />
+                        <p:inputText id="anecedentFamiliaux" value="#{antecedantController.selected.anecedentFamiliaux}" title="#{bundle.EditAntecedantTitle_anecedentFamiliaux}" />
+                        <p:outputLabel value="#{bundle.EditAntecedantLabel_facteursRisque}" for="facteursRisque" />
+                        <p:inputText id="facteursRisque" value="#{antecedantController.selected.facteursRisque}" title="#{bundle.EditAntecedantTitle_facteursRisque}" />
+                        <p:outputLabel value="#{bundle.EditAntecedantLabel_idPatient}" for="idPatient" />
+                        <p:selectOneMenu id="idPatient" value="#{antecedantController.selected.idPatient}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="idPatientItem"
+                                           itemValue="#{idPatientItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{antecedantController.update}" value="#{bundle.Save}" update="display,:AntecedantListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AntecedantEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AntecedantEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

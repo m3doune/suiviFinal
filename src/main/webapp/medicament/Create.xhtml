@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MedicamentCreateDlg" widgetVar="MedicamentCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMedicamentTitle}">
+            <h:form id="MedicamentCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{medicamentController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMedicamentLabel_idMed}" for="idMed" />
+                        <p:inputText id="idMed" value="#{medicamentController.selected.idMed}" title="#{bundle.CreateMedicamentTitle_idMed}" required="true" requiredMessage="#{bundle.CreateMedicamentRequiredMessage_idMed}"/>
+                        <p:outputLabel value="#{bundle.CreateMedicamentLabel_libelle}" for="libelle" />
+                        <p:inputText id="libelle" value="#{medicamentController.selected.libelle}" title="#{bundle.CreateMedicamentTitle_libelle}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{medicamentController.create}" value="#{bundle.Save}" update="display,:MedicamentListForm:datalist,:growl" oncomplete="handleSubmit(args,'MedicamentCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MedicamentCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PatientCreateDlg" widgetVar="PatientCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePatientTitle}">
+            <h:form id="PatientCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{patientController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePatientLabel_idPatient}" for="idPatient" />
+                        <p:inputText id="idPatient" value="#{patientController.selected.idPatient}" title="#{bundle.CreatePatientTitle_idPatient}" required="true" requiredMessage="#{bundle.CreatePatientRequiredMessage_idPatient}"/>
+                        <p:outputLabel value="#{bundle.CreatePatientLabel_profession}" for="profession" />
+                        <p:inputText id="profession" value="#{patientController.selected.profession}" title="#{bundle.CreatePatientTitle_profession}" />
+                        <p:outputLabel value="#{bundle.CreatePatientLabel_css}" for="css" />
+                        <p:inputText id="css" value="#{patientController.selected.css}" title="#{bundle.CreatePatientTitle_css}" />
+                        <p:outputLabel value="#{bundle.CreatePatientLabel_mutuel}" for="mutuel" />
+                        <p:inputText id="mutuel" value="#{patientController.selected.mutuel}" title="#{bundle.CreatePatientTitle_mutuel}" />
+                        <p:outputLabel value="#{bundle.CreatePatientLabel_idCompte}" for="idCompte" />
+                        <p:selectOneMenu id="idCompte" value="#{patientController.selected.idCompte}" required="true" requiredMessage="#{bundle.EditPatientRequiredMessage_idCompte}">
+                            <f:selectItems value="#{compteController.itemsAvailableSelectOne}"
+                                           var="idCompteItem"
+                                           itemValue="#{idCompteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{patientController.create}" value="#{bundle.Save}" update="display,:PatientListForm:datalist,:growl" oncomplete="handleSubmit(args,'PatientCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PatientCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MedecinCreateDlg" widgetVar="MedecinCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMedecinTitle}">
+            <h:form id="MedecinCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{medecinController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMedecinLabel_idMedecin}" for="idMedecin" />
+                        <p:inputText id="idMedecin" value="#{medecinController.selected.idMedecin}" title="#{bundle.CreateMedecinTitle_idMedecin}" required="true" requiredMessage="#{bundle.CreateMedecinRequiredMessage_idMedecin}"/>
+                        <p:outputLabel value="#{bundle.CreateMedecinLabel_fonction}" for="fonction" />
+                        <p:inputText id="fonction" value="#{medecinController.selected.fonction}" title="#{bundle.CreateMedecinTitle_fonction}" />
+                        <p:outputLabel value="#{bundle.CreateMedecinLabel_grade}" for="grade" />
+                        <p:inputText id="grade" value="#{medecinController.selected.grade}" title="#{bundle.CreateMedecinTitle_grade}" />
+                        <p:outputLabel value="#{bundle.CreateMedecinLabel_idCompte}" for="idCompte" />
+                        <p:selectOneMenu id="idCompte" value="#{medecinController.selected.idCompte}" required="true" requiredMessage="#{bundle.EditMedecinRequiredMessage_idCompte}">
+                            <f:selectItems value="#{compteController.itemsAvailableSelectOne}"
+                                           var="idCompteItem"
+                                           itemValue="#{idCompteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{medecinController.create}" value="#{bundle.Save}" update="display,:MedecinListForm:datalist,:growl" oncomplete="handleSubmit(args,'MedecinCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MedecinCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

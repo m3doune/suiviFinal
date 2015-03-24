@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnalyseEditDlg" widgetVar="AnalyseEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAnalyseTitle}">
+            <h:form id="AnalyseEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{analyseController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAnalyseLabel_idAnalyse}" for="idAnalyse" />
+                        <p:inputText id="idAnalyse" value="#{analyseController.selected.idAnalyse}" title="#{bundle.EditAnalyseTitle_idAnalyse}" required="true" requiredMessage="#{bundle.EditAnalyseRequiredMessage_idAnalyse}"/>
+                        <p:outputLabel value="#{bundle.EditAnalyseLabel_typeAnalyse}" for="typeAnalyse" />
+                        <p:inputText id="typeAnalyse" value="#{analyseController.selected.typeAnalyse}" title="#{bundle.EditAnalyseTitle_typeAnalyse}" />
+                        <p:outputLabel value="#{bundle.EditAnalyseLabel_resultat}" for="resultat" />
+                        <p:inputText id="resultat" value="#{analyseController.selected.resultat}" title="#{bundle.EditAnalyseTitle_resultat}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{analyseController.update}" value="#{bundle.Save}" update="display,:AnalyseListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AnalyseEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AnalyseEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

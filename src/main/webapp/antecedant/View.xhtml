@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AntecedantViewDlg" widgetVar="AntecedantViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAntecedantTitle}">
+            <h:form id="AntecedantViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{antecedantController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAntecedantLabel_idDiagnostique}"/>
+                        <h:outputText value="#{antecedantController.selected.idDiagnostique}" title="#{bundle.ViewAntecedantTitle_idDiagnostique}"/>
+                        <h:outputText value="#{bundle.ViewAntecedantLabel_antecedentComptel}"/>
+                        <h:outputText value="#{antecedantController.selected.antecedentComptel}" title="#{bundle.ViewAntecedantTitle_antecedentComptel}"/>
+                        <h:outputText value="#{bundle.ViewAntecedantLabel_anecedentFamiliaux}"/>
+                        <h:outputText value="#{antecedantController.selected.anecedentFamiliaux}" title="#{bundle.ViewAntecedantTitle_anecedentFamiliaux}"/>
+                        <h:outputText value="#{bundle.ViewAntecedantLabel_facteursRisque}"/>
+                        <h:outputText value="#{antecedantController.selected.facteursRisque}" title="#{bundle.ViewAntecedantTitle_facteursRisque}"/>
+                        <h:outputText value="#{bundle.ViewAntecedantLabel_idPatient}"/>
+                        <h:outputText value="#{antecedantController.selected.idPatient}" title="#{bundle.ViewAntecedantTitle_idPatient}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AntecedantViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

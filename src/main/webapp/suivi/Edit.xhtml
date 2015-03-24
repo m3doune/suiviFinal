@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SuiviEditDlg" widgetVar="SuiviEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSuiviTitle}">
+            <h:form id="SuiviEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{suiviController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSuiviLabel_datedebut}" for="datedebut" />
+                        <p:calendar id="datedebut" pattern="MM/dd/yyyy HH:mm:ss" value="#{suiviController.selected.datedebut}" title="#{bundle.EditSuiviTitle_datedebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSuiviLabel_datefin}" for="datefin" />
+                        <p:calendar id="datefin" pattern="MM/dd/yyyy HH:mm:ss" value="#{suiviController.selected.datefin}" title="#{bundle.EditSuiviTitle_datefin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSuiviLabel_maladie}" for="maladie" />
+                        <p:selectOneMenu id="maladie" value="#{suiviController.selected.maladie}" required="true" requiredMessage="#{bundle.EditSuiviRequiredMessage_maladie}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{maladieController.itemsAvailableSelectOne}"
+                                           var="maladieItem"
+                                           itemValue="#{maladieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSuiviLabel_medecin}" for="medecin" />
+                        <p:selectOneMenu id="medecin" value="#{suiviController.selected.medecin}" required="true" requiredMessage="#{bundle.EditSuiviRequiredMessage_medecin}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="medecinItem"
+                                           itemValue="#{medecinItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSuiviLabel_patient}" for="patient" />
+                        <p:selectOneMenu id="patient" value="#{suiviController.selected.patient}" required="true" requiredMessage="#{bundle.EditSuiviRequiredMessage_patient}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="patientItem"
+                                           itemValue="#{patientItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{suiviController.update}" value="#{bundle.Save}" update="display,:SuiviListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SuiviEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SuiviEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

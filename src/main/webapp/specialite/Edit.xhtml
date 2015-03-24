@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SpecialiteEditDlg" widgetVar="SpecialiteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSpecialiteTitle}">
+            <h:form id="SpecialiteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{specialiteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSpecialiteLabel_idSpec}" for="idSpec" />
+                        <p:inputText id="idSpec" value="#{specialiteController.selected.idSpec}" title="#{bundle.EditSpecialiteTitle_idSpec}" required="true" requiredMessage="#{bundle.EditSpecialiteRequiredMessage_idSpec}"/>
+                        <p:outputLabel value="#{bundle.EditSpecialiteLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{specialiteController.selected.nom}" title="#{bundle.EditSpecialiteTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditSpecialiteLabel_idMaladie}" for="idMaladie" />
+                        <p:selectOneMenu id="idMaladie" value="#{specialiteController.selected.idMaladie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{maladieController.itemsAvailableSelectOne}"
+                                           var="idMaladieItem"
+                                           itemValue="#{idMaladieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSpecialiteLabel_idMedecin}" for="idMedecin" />
+                        <p:selectOneMenu id="idMedecin" value="#{specialiteController.selected.idMedecin}" required="true" requiredMessage="#{bundle.EditSpecialiteRequiredMessage_idMedecin}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{medecinController.itemsAvailableSelectOne}"
+                                           var="idMedecinItem"
+                                           itemValue="#{idMedecinItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{specialiteController.update}" value="#{bundle.Save}" update="display,:SpecialiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SpecialiteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SpecialiteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

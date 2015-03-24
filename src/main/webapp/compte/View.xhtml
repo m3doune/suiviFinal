@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompteViewDlg" widgetVar="CompteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCompteTitle}">
+            <h:form id="CompteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCompteLabel_idCompte}"/>
+                        <h:outputText value="#{compteController.selected.idCompte}" title="#{bundle.ViewCompteTitle_idCompte}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_login}"/>
+                        <h:outputText value="#{compteController.selected.login}" title="#{bundle.ViewCompteTitle_login}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_password}"/>
+                        <h:outputText value="#{compteController.selected.password}" title="#{bundle.ViewCompteTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_medecin}"/>
+                        <p:selectBooleanCheckbox value="#{compteController.selected.medecin}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_nom}"/>
+                        <h:outputText value="#{compteController.selected.nom}" title="#{bundle.ViewCompteTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_prenom}"/>
+                        <h:outputText value="#{compteController.selected.prenom}" title="#{bundle.ViewCompteTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_sexe}"/>
+                        <p:selectBooleanCheckbox value="#{compteController.selected.sexe}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_adresse}"/>
+                        <h:outputText value="#{compteController.selected.adresse}" title="#{bundle.ViewCompteTitle_adresse}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_datenaiss}"/>
+                        <h:outputText value="#{compteController.selected.datenaiss}" title="#{bundle.ViewCompteTitle_datenaiss}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCompteLabel_tel}"/>
+                        <h:outputText value="#{compteController.selected.tel}" title="#{bundle.ViewCompteTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_email}"/>
+                        <h:outputText value="#{compteController.selected.email}" title="#{bundle.ViewCompteTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewCompteLabel_idLoc}"/>
+                        <h:outputText value="#{compteController.selected.idLoc}" title="#{bundle.ViewCompteTitle_idLoc}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CompteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
